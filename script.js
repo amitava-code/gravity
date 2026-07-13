@@ -215,5 +215,16 @@
       });
       return { positions: positions, total: cursor };
     }
+    var REF = 100;
+    FONT_SIZE = REF;
+    buildCache(font);
+    var refLayout = layoutWord();
+    FONT_SIZE = Math.max(
+      50,
+      Math.min(220, ((W * 0.86) / refLayout.total) * REF),
+    );
+
+    buildCache(font);
+    var layout = layoutWord();
   });
 })();
