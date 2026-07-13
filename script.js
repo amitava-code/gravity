@@ -45,4 +45,16 @@
     World.add(world, [floor, leftWall, rightWall]);
   }
   buildWalls();
+
+  var LETTER_COLOR = "#f5f4ef";
+  var FONT_URL =
+    "https://cdn.jsdelivr.net/gh/google/fonts@main/ofl/archivoblack/ArchivoBlack-Regular.ttf";
+  var FONT_SIZE = 200;
+  var WORD = "AMITAVA COHORT 3".split("");
+  var FULL_POOL = "AMITAVA COHORT 3".split("");
+  var UNIQUE = Array.from(new Set(FULL_POOL));
+
+  var bodies = [],
+    recs = [];
+  var cache = {};
 })();
