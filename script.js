@@ -57,4 +57,63 @@
   var bodies = [],
     recs = [];
   var cache = {};
+
+  function flattenPath(commands) {
+    var pts = [];
+    var cur = { x: 0, y: 0 };
+    var start = { x: 0, y: 0 };
+    function quad(p0, p1, p2, n) {
+      for (var i = 1; i <= n; i++) {
+        var t = i / n,
+          mt = 1 - t;
+        pts.push({
+          x: mt * mt * p0.x + 2 * mt * t * p1.x + t * t * p2.x,
+          y: mt * mt * p0.y + 2 * mt * t * p1.y + t * t * p2.y,
+        });
+      }
+    }
+    function cubic(p0, p1, p2, p3, n) {
+      for (var i = 1; i <= n; i++) {
+        var t = i / n,
+          mt = 1 - t;
+        pts.push({
+          x:
+            mt * mt * mt * p0.x +
+            3 * mt * mt * t * p1.x +
+            3 * mt * t * t * p2.x +
+            t * t * t * p3.x,
+          y:
+            mt * mt * mt * p0.y +
+            3 * mt * mt * t * p1.y +
+            3 * mt * t * t * p2.y +
+            t * t * t * p3.y,
+        });
+      }
+    }
+    commands.forEach(function (c) {
+      if (c.type === "M") {
+        cur = { x: c.x, y: c.y };
+        start = { x: c.x, y: c.y };
+        pts.push({ x: cur.x, y: cur.y });
+      } else if (c.type === "L") {
+        cur = { x: c.x, y: c.y };
+        pts.push({ x: cur.x, y: cur.y });
+      } else if (c.type === "Q") {
+        quad(cur, { x: c.x1, y: c.y1 }, { x: c.x, y: c.y }, 6);
+        cur = { x: c.x, y: c.y };
+      } else if (c.type === "C") {
+        cubic(
+          cur,
+          { x: c.x1, y: c.y1 },
+          { x: c.x2, y: c.y2 },
+          { x: c.x, y: c.y },
+          8,
+        );
+        cur = { x: c.x, y: c.y };
+      } else if (c.type === "Z") {
+        cur = { x: start.x, y: start.y };
+      }
+    });
+    return pts;
+  }
 })();
