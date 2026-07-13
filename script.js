@@ -181,4 +181,13 @@
     recs.push(wrap);
     return body;
   }
+  function dropRandom() {
+    var ch = FULL_POOL[Math.floor(Math.random() * FULL_POOL.length)];
+    var margin = (cache[ch] ? cache[ch].w / 2 : 60) + 20;
+    var x = margin + Math.random() * (W - margin * 2);
+    var y = -150;
+    var angle = (Math.random() - 0.5) * 1.2;
+    var body = createLetter(ch, x, y, angle, false);
+    if (body) Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.2);
+  }
 })();
