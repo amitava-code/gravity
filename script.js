@@ -190,4 +190,30 @@
     var body = createLetter(ch, x, y, angle, false);
     if (body) Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.2);
   }
+
+  opentype.load(FONT_URL, function (err, font) {
+    if (err) {
+      console.error("font load failed", err);
+      return;
+    }
+
+    function layoutWord() {
+      var cursor = 0;
+      var prevWasLetter = false;
+      var positions = [];
+      WORD.forEach(function (ch) {
+        if (ch === " ") {
+          cursor += FONT_SIZE * 0.34;
+          positions.push(null);
+          prevWasLetter = false;
+          return;
+        }
+        if (prevWasLetter) cursor += FONT_SIZE * 0.09;
+        positions.push(cursor);
+        cursor += cache[ch].w;
+        prevWasLetter = true;
+      });
+      return { positions: positions, total: cursor };
+    }
+  });
 })();
