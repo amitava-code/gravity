@@ -116,4 +116,27 @@
     });
     return pts;
   }
+
+  function buildCache(font) {
+    UNIQUE.forEach(function (ch) {
+      var path = font.charToGlyph(ch).getPath(0, 0, FONT_SIZE);
+      var bbox = path.getBoundingBox();
+      var w = bbox.x2 - bbox.x1,
+        h = bbox.y2 - bbox.y1;
+      var pts = flattenPath(path.commands);
+      var hull = Vertices.hull(pts);
+      var center = Vertices.centre(hull);
+      cache[ch] = {
+        d: path.toPathData(2),
+        bbox: bbox,
+        w: w,
+        h: h,
+        hull: hull,
+        centerX: center.x,
+        centerY: center.y,
+        originX: center.x - bbox.x1,
+        originY: center.y - bbox.y1,
+      };
+    });
+  }
 })();
