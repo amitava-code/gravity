@@ -50,8 +50,8 @@
   var FONT_URL =
     "https://cdn.jsdelivr.net/gh/google/fonts@main/ofl/archivoblack/ArchivoBlack-Regular.ttf";
   var FONT_SIZE = 200;
-  var WORD = "AMITAVA COHORT 3".split("");
-  var FULL_POOL = "AMITAVA COHORT 3".split("");
+  var WORD = "DROP THE LETTERS".split("");
+  var FULL_POOL = "DROP THE LETTERS".split("");
   var UNIQUE = Array.from(new Set(FULL_POOL));
 
   var bodies = [],
@@ -301,7 +301,7 @@
       }
     });
   });
-  
+
   window.addEventListener("resize", function () {
     location.reload();
   });
