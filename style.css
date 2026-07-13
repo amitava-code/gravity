@@ -17,3 +17,20 @@ body {
   overflow: hidden;
   user-select: none;
 }
+
+#stage {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.letter-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: grab;
+  will-change: transform;
+}
+.letter-wrap:active {
+  cursor: grabbing;
+}
