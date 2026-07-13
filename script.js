@@ -226,5 +226,18 @@
 
     buildCache(font);
     var layout = layoutWord();
+
+    var wordBodies = [];
+    var startX = (W - layout.total) / 2;
+    var baselineY = Math.min(H * 0.32, H * 0.5 - 40);
+    WORD.forEach(function (ch, i) {
+      var pos = layout.positions[i];
+      if (pos === null) return;
+      var data = cache[ch];
+      var bx = startX + pos + data.originX;
+      var by = baselineY + data.centerY;
+      var body = createLetter(ch, bx, by, 0, true);
+      if (body) wordBodies.push(body);
+    });
   });
 })();
