@@ -252,5 +252,36 @@
         if (body) Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.2);
       });
     }
+
+    var wordDropped = false;
+    stage.style.cursor = "pointer";
+
+    stage.addEventListener("click", function (e) {
+      if (!wordDropped) {
+        wordDropped = true;
+        stage.style.cursor = "default";
+        wordBodies.forEach(function (body) {
+          Body.setStatic(body, false);
+          Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.08);
+        });
+        return;
+      }
+      if (e.target !== stage) return;
+      dropRandom();
+    });
+    stage.addEventListener("dblclick", function (e) {
+      if (!wordDropped) return;
+      dropWordFromSky();
+    });
+
+    var mouse = Mouse.create(stage);
+    mouse.pixelRatio = 1;
+    var mouseConstraint = MouseConstraint.create(engine, {
+      mouse: mouse,
+      constraint: { stiffness: 0.2, render: { visible: false } },
+    });
+    World.add(world, mouseConstraint);
+
+
   });
 })();
