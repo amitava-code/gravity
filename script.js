@@ -239,5 +239,18 @@
       var body = createLetter(ch, bx, by, 0, true);
       if (body) wordBodies.push(body);
     });
+
+    function dropWordFromSky() {
+      WORD.forEach(function (ch, i) {
+        var pos = layout.positions[i];
+        if (pos === null) return;
+        var data = cache[ch];
+        var bx = startX + pos + data.originX;
+        var by = -200 - Math.random() * 260;
+        var angle = (Math.random() - 0.5) * 0.9;
+        var body = createLetter(ch, bx, by, angle, false);
+        if (body) Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.2);
+      });
+    }
   });
 })();
