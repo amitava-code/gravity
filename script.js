@@ -282,6 +282,25 @@
     });
     World.add(world, mouseConstraint);
 
+    var runner = Runner.create();
+    Runner.run(runner, engine);
+
+    Events.on(engine, "afterUpdate", function () {
+      for (var i = 0; i < bodies.length; i++) {
+        var b = bodies[i],
+          wrap = recs[i];
+        if (!wrap) continue;
+        wrap.style.transform =
+          "translate(" +
+          b.position.x +
+          "px," +
+          b.position.y +
+          "px) rotate(" +
+          b.angle +
+          "rad)";
+      }
+    });
+
 
   });
 })();
