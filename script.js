@@ -139,4 +139,46 @@
       };
     });
   }
+  function createLetter(ch, x, y, angle, isStatic) {
+    var data = cache[ch];
+    if (!data) return null;
+
+    var body = Bodies.fromVertices(x, y, [data.hull], {
+      restitution: 0.5,
+      friction: 0.55,
+      frictionAir: 0.001,
+      isStatic: !!isStatic,
+    });
+    Body.setAngle(body, angle || 0);
+
+    var wrap = document.createElement("div");
+    wrap.className = "letter-wrap";
+    wrap.style.width = data.w + "px";
+    wrap.style.height = data.h + "px";
+    wrap.style.transformOrigin = data.originX + "px " + data.originY + "px";
+    wrap.innerHTML =
+      '<svg width="' +
+      data.w +
+      '" height="' +
+      data.h +
+      '" viewBox="' +
+      data.bbox.x1 +
+      " " +
+      data.bbox.y1 +
+      " " +
+      data.w +
+      " " +
+      data.h +
+      '" style="display:block;overflow:visible;"><path d="' +
+      data.d +
+      '" fill="' +
+      LETTER_COLOR +
+      '" fill-rule="evenodd"/></svg>';
+    stage.appendChild(wrap);
+
+    World.add(world, body);
+    bodies.push(body);
+    recs.push(wrap);
+    return body;
+  }
 })();
