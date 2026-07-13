@@ -1,0 +1,19 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  background: radial-gradient(
+    circle at 50% 0%,
+    #14181a 0%,
+    #0a0c0d 55%,
+    #050607 100%
+  );
+  font-family: "Space Grotesk", sans-serif;
+  overflow: hidden;
+  user-select: none;
+}
